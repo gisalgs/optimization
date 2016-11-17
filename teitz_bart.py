@@ -1,16 +1,25 @@
-from bisect import bisect_left
-from string import atoi, split
+"""
+Teitz-Bart algorithm for the p-median problem
+
+History
+    November 17, 2016
+        moved some imports to the __main__ part of the code
+
+Contact:
+Ningchuan Xiao
+The Ohio State University
+Columbus, OH
+"""
+
+__author__ = "Ningchuan Xiao <ncxiao@gmail.com>"
+
 import random
-import sys
-sys.path.append('../networks')
-from network2listmatrix import network2distancematrix
-from allpairdist import allpairs
 
 INF = float('inf')
 
 def findout(median, fi, dist, d1, d2, N):
     """
-    Determines, given a candidate for insertion (fi), 
+    Determines, given a candidate for insertion (fi),
     the best candidate in the solution to replace or remove (fr).
     This does not change values in median, d1, and d2.
     """
@@ -33,7 +42,7 @@ def findout(median, fi, dist, d1, d2, N):
 
 def update_assignment(dist, median, d1, d2, p, N):
     """
-    Updates d1 and d2 given median so that d1 holds the 
+    Updates d1 and d2 given median so that d1 holds the
     nearestest facility for each node and d2 holds the second
     """
     dist1, dist2 = 0.0, 0.0
@@ -80,7 +89,7 @@ def next(dist, median, d1, d2, p, N):
             fi = i
     r = 0
     if bestgain > 0:
-        i = median.index(fr) 
+        i = median.index(fr)
         median[i] = fi
         r = update_assignment(dist, median, d1, d2, p, N)
     return bestgain>0, r, fr, fi
@@ -108,13 +117,15 @@ def teitz_bart(dist, p, verbose=False):
     return r, median
 
 if __name__ == "__main__":
+    import sys
+    sys.path.append('../networks')
+    from network2listmatrix import network2distancematrix
+    from allpairdist import allpairs
     print 'Problem: simple network'
     a = network2distancematrix('../data/network-links', True)
     allpairs(a)
     teitz_bart(a, 2, True)
     print 'Problem: pmed1 in OR-lib'
-    a = network2distancematrix('../data/orlib/pmed1.orlib',
-                               False)
+    a = network2distancematrix('../data/orlib/pmed1.orlib', False)
     allpairs(a)
     teitz_bart(a, 5, True)
-    
