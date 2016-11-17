@@ -1,13 +1,22 @@
-from bisect import bisect_left
-from string import atoi, split
+"""
+A simulated annealing algorithm for the p-median problem
+
+History
+    November 17, 2016
+        moved some imports to the __main__ part of the code
+
+Contact:
+Ningchuan Xiao
+The Ohio State University
+Columbus, OH
+"""
+
+__author__ = "Ningchuan Xiao <ncxiao@gmail.com>"
+
 import math
 import random
 from copy import deepcopy
 from teitz_bart import update_assignment
-import sys
-sys.path.append('../networks')
-from network2listmatrix import network2distancematrix
-from allpairdist import allpairs
 
 INF = float('inf')
 
@@ -82,7 +91,7 @@ def bestGeoNeighbor(median, dist, d1, d2, N, p, dthreshold):
     return r_min, fi, fr
 
 def next(r, T, median, dist, d1, d2, p, N,
-         dthreshold, neighbormethod): 
+         dthreshold, neighbormethod):
     r1 = r
     if neighbormethod == 0:
         r_min, fi, fr = bestGeoNeighbor(median, dist, d1, d2, N, p, dthreshold)
@@ -147,6 +156,10 @@ def simulated_annealing(dist, p, neighbormethod=0, verbose=False):
     return first, best
 
 if __name__ == "__main__":
+    import sys
+    sys.path.append('../networks')
+    from network2listmatrix import network2distancematrix
+    from allpairdist import allpairs
     print 'Problem: simple network'
     a = network2distancematrix('../data/network-links', True)
     allpairs(a)
