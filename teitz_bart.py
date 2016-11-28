@@ -43,7 +43,7 @@ def findout(median, fi, dist, d1, d2, N):
 def update_assignment(dist, median, d1, d2, p, N):
     """
     Updates d1 and d2 given median so that d1 holds the
-    nearestest facility for each node and d2 holds the second
+    nearest facility for each node and d2 holds the second
     """
     dist1, dist2 = 0.0, 0.0
     node1, node2 = -1, -1
@@ -73,7 +73,7 @@ def next(dist, median, d1, d2, p, N):
       d1: list of nearest facility for each vertex
       d2: list of second nearest facility
       p: number of facilities to locate
-      N: number of vertices on the nextwork
+      N: number of vertices on the network
     OUPTU
       r: total distance
       median: list of integers for selected vertices
