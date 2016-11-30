@@ -1,3 +1,19 @@
+"""
+k-means
+
+History
+    November 29, 2016
+        import geom.point
+        comments added
+
+Contact:
+Ningchuan Xiao
+The Ohio State University
+Columbus, OH
+"""
+
+__author__ = "Ningchuan Xiao <ncxiao@gmail.com>"
+
 from random import random, sample, uniform
 from math import fabs, sqrt
 
@@ -9,7 +25,18 @@ from geom.point import *
 INF = float('inf')
 
 def clustering_dist(points, means):
-    n = len(points)
+    """
+    Computing distances for the k-means
+
+    Input
+      points:    list of Point objects
+      means:     list of k points that serve as the means
+
+    Output
+      nearests:  list of lists, where each inner list holds the id of nearest points to each mean
+      totaldist: average distances between each point to its nearest mean
+    """
+     n = len(points)
     k = len(means)
     nearests = [[] for i in range(k)]
     totaldist = 0
@@ -27,6 +54,19 @@ def clustering_dist(points, means):
     return nearests, totaldist
 
 def initk(points, k, init):
+    """
+    Initialization for k-means
+
+    Input
+      points:    list of Point objects
+      k:         integer
+      init:      initialization method ('forgy' or 'random')
+
+    Output
+      means:     list of k Point objects
+      nearests:  list of lists, where each inner list holds the id of nearest points to each mean
+      totaldist: average distances between each point to its nearest mean
+    """
     n = len(points)
     xmin = INF
     ymin = INF
@@ -50,6 +90,17 @@ def initk(points, k, init):
     return means, nearests, totaldist
 
 def kmeans(points, k, threshold=1e-5, init="forgy"):
+    """
+    Input
+      points:     list of Point objects
+      k:          integer, the number of means
+      threshould: minimal improvement between iterations
+      init:       initialization method ('forgy' or 'random')
+
+    Output
+      means:      list of k Point objects
+      totaldist:  average distances between each point to its nearest mean
+    """
     bigdiff = True
     means, nearests, totaldist = initk(points, k, init)
     print means
