@@ -1,9 +1,10 @@
-import sys
-sys.path.append('../geom')
-from point import *
-import random
-from math import fabs
-from math import sqrt
+from random import random, sample, uniform
+from math import fabs, sqrt
+
+import os, sys
+lib_path = os.path.abspath('../')
+sys.path.insert(0, lib_path)
+from geom.point import *
 
 INF = float('inf')
 
@@ -39,10 +40,9 @@ def initk(points, k, init):
     nearests = [[] for i in range(k)]
     while [] in nearests: # until not empty sets in nearests
         if init=="forgy":   # Forgy initialization
-            means = [points[i] for i in random.sample(range(n), k)]
+            means = [points[i] for i in sample(range(n), k)]
         elif init=="random":
-            means = [ Point(random.uniform(xmin, xmax), random.uniform(ymin, ymax))
-                      for i in range(k) ]
+            means = [ Point(uniform(xmin, xmax), uniform(ymin, ymax)) for i in range(k) ]
         else:
             print "Error: unknown initialization method"
             sys.exit(1)
@@ -76,27 +76,21 @@ def kmeans(points, k, threshold=1e-5, init="forgy"):
 
 def test():
     n = 5000
-    points = [ Point(random.random(), random.random()) for i in range(n) ]
+    points = [ Point(random(), random()) for i in range(n) ]
 
     print kmeans(points, 10, init="forgy")[0]
 
-    points1 = [ Point(random.uniform(10, 20), random.uniform(10, 20))
-                for i in range(n/2) ]
-    points2 = [ Point(random.uniform(30, 40), random.uniform(30, 40))
-                for i in range(n/2) ]
+    points1 = [ Point(uniform(10, 20), uniform(10, 20)) for i in range(n/2) ]
+    points2 = [ Point(uniform(30, 40), uniform(30, 40)) for i in range(n/2) ]
 
     print kmeans(points1+points2, 2)[0]
 
-    points1 = [ Point(random.uniform(10, 20), random.uniform(10, 20))
-                for i in range(n/3) ]
-    points2 = [ Point(random.uniform(30, 40), random.uniform(10, 20))
-                for i in range(n/3) ]
-    points3 = [ Point(random.uniform(20, 30), random.uniform(30, 40))
-                for i in range(n/3) ]
+    points1 = [ Point(uniform(10, 20), uniform(10, 20)) for i in range(n/3) ]
+    points2 = [ Point(uniform(30, 40), uniform(10, 20)) for i in range(n/3) ]
+    points3 = [ Point(uniform(20, 30), uniform(30, 40)) for i in range(n/3) ]
 
     print kmeans(points1+points2+points3, 3)[0]
     print kmeans(points1+points2+points3, 3, init="random")[0]
 
 if __name__ == "__main__":
     test()
-
