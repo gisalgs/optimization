@@ -2,6 +2,9 @@
 Teitz-Bart algorithm for the p-median problem
 
 History
+    November 29, 2016
+        clean up comments
+
     November 17, 2016
         moved some imports to the __main__ part of the code
 
@@ -21,7 +24,20 @@ def findout(median, fi, dist, d1, d2, N):
     """
     Determines, given a candidate for insertion (fi),
     the best candidate in the solution to replace or remove (fr).
-    This does not change values in median, d1, and d2.
+
+    INPUT
+      median:  list of integers for selected vertices
+      fi:      candidate none-selected vertex
+      dist:    distance matrix
+      d1:      list of nearest facility for each vertex
+      d2:      list of second nearest facility
+      N:       number of vertices on the network
+
+    OUTPUT
+      fmin:    gain
+      fr:      vertex to be replaced
+
+    This function does not change values in median, d1, and d2.
     """
     w = 0.0
     v = [0.0 for i in range(N)]
@@ -44,6 +60,19 @@ def update_assignment(dist, median, d1, d2, p, N):
     """
     Updates d1 and d2 given median so that d1 holds the
     nearest facility for each node and d2 holds the second
+
+    INPUT
+      dist:    distance matrix
+      median:  list of integers for selected vertices
+      d1:      list of nearest facility for each vertex
+      d2:      list of second nearest facility
+      p:       number of facilities to locate
+      N:       number of vertices on the network
+
+    OUPTU
+      dist1:   total distance
+
+      Also will update d1 and d2
     """
     dist1, dist2 = 0.0, 0.0
     node1, node2 = -1, -1
@@ -75,9 +104,13 @@ def next(dist, median, d1, d2, p, N):
       p:       number of facilities to locate
       N:       number of vertices on the network
 
-    OUPTU
+    OUTPUT
+      T/F:     True if positive gain, False otherwise
       r:       total distance
-      median:  list of integers for selected vertices
+      fr:      vertex replaced
+      fi:      new vertex inserted into the current solution
+
+    Note: this function may change median, d1, and d2
     """
     bestgain = -INF
     for i in range(N):
@@ -101,6 +134,10 @@ def teitz_bart(dist, p, verbose=False):
       dist:     distance matrix
       p:        number of facilities to be selected
       verbose:  whether intermediate results are printed
+
+    OUTPUT
+      r:        total distance
+      median:   vertices selected for the solution
     """
     N = len(dist)
     median = random.sample(range(N), p)
