@@ -68,15 +68,16 @@ def update_assignment(dist, median, d1, d2, p, N):
 def next(dist, median, d1, d2, p, N):
     """
     INPUT
-      dist: distance matrix
-      median: list of integers for selected vertices
-      d1: list of nearest facility for each vertex
-      d2: list of second nearest facility
-      p: number of facilities to locate
-      N: number of vertices on the network
+      dist:    distance matrix
+      median:  list of integers for selected vertices
+      d1:      list of nearest facility for each vertex
+      d2:      list of second nearest facility
+      p:       number of facilities to locate
+      N:       number of vertices on the network
+
     OUPTU
-      r: total distance
-      median: list of integers for selected vertices
+      r:       total distance
+      median:  list of integers for selected vertices
     """
     bestgain = -INF
     for i in range(N):
@@ -97,9 +98,9 @@ def next(dist, median, d1, d2, p, N):
 def teitz_bart(dist, p, verbose=False):
     """
     INPUT
-      dist: distance matrix
-      p: number of facilities to be selected
-      verbose: whether intermediate results are printed
+      dist:     distance matrix
+      p:        number of facilities to be selected
+      verbose:  whether intermediate results are printed
     """
     N = len(dist)
     median = random.sample(range(N), p)
