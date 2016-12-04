@@ -36,7 +36,7 @@ def clustering_dist(points, means):
       nearests:  list of lists, where each inner list holds the id of nearest points to each mean
       totaldist: average distances between each point to its nearest mean
     """
-     n = len(points)
+    n = len(points)
     k = len(means)
     nearests = [[] for i in range(k)]
     totaldist = 0
@@ -89,7 +89,7 @@ def initk(points, k, init):
         nearests, totaldist = clustering_dist(points, means)
     return means, nearests, totaldist
 
-def kmeans(points, k, threshold=1e-5, init="forgy"):
+def kmeans(points, k, threshold=1e-5, init="forgy", verbose=False):
     """
     Input
       points:     list of Point objects
@@ -103,7 +103,8 @@ def kmeans(points, k, threshold=1e-5, init="forgy"):
     """
     bigdiff = True
     means, nearests, totaldist = initk(points, k, init)
-    print means
+    if verbose:
+        print means
     while bigdiff:
         means2 = []
         for j in range(k):
@@ -120,7 +121,8 @@ def kmeans(points, k, threshold=1e-5, init="forgy"):
         if offset > threshold:
             means = means2
             totaldist = newtotal
-            print means
+            if verbose:
+                print means
         else:
             bigdiff = False
     return totaldist, means
