@@ -2,6 +2,9 @@
 k-means
 
 History
+    December 4, 2016
+        verbose option in kmeans
+
     November 29, 2016
         import geom.point
         comments added
@@ -96,10 +99,11 @@ def kmeans(points, k, threshold=1e-5, init="forgy", verbose=False):
       k:          integer, the number of means
       threshould: minimal improvement between iterations
       init:       initialization method ('forgy' or 'random')
+      verbose:    if True, print intermediate result
 
     Output
-      means:      list of k Point objects
       totaldist:  average distances between each point to its nearest mean
+      means:      list of k Point objects
     """
     bigdiff = True
     means, nearests, totaldist = initk(points, k, init)
