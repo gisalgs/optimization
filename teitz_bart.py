@@ -69,7 +69,7 @@ def update_assignment(dist, median, d1, d2, p, N):
       p:       number of facilities to locate
       N:       number of vertices on the network
 
-    OUPTU
+    OUTPUT
       dist1:   total distance
 
       Also will update d1 and d2
