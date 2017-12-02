@@ -2,6 +2,11 @@
 k-means
 
 History
+    December 2, 2017
+        Use exception to check initialization method
+        Tried kd tree, with no improvement in computing time
+        (tree construction takes too much time)
+        
     December 4, 2016
         verbose option in kmeans
 
@@ -45,7 +50,6 @@ def clustering_dist(points, means):
     totaldist = 0
     for i in range(n):
         dmin = INF
-        near = []
         for j in range(k):
             d = points[i].distance(means[j])
             if d < dmin:
@@ -87,8 +91,7 @@ def initk(points, k, init):
         elif init=="random":
             means = [ Point(uniform(xmin, xmax), uniform(ymin, ymax)) for i in range(k) ]
         else:
-            print("Error: unknown initialization method")
-            sys.exit(1)
+            raise Exception("kmeans: unknown initialization method")
         nearests, totaldist = clustering_dist(points, means)
     return means, nearests, totaldist
 
@@ -133,21 +136,21 @@ def kmeans(points, k, threshold=1e-5, init="forgy", verbose=False):
 
 def test():
     n = 5000
-    points = [ Point(random(), random()) for i in range(n) ]
+    points1 = [ Point(random(), random()) for i in range(n) ]
 
-    print(kmeans(points, 10, init="forgy")[0])
+    points2 = [ Point(uniform(10, 20), uniform(10, 20)) for i in range(n//2) ] + [ Point(uniform(30, 40), uniform(30, 40)) for i in range(n//2) ]
 
-    points1 = [ Point(uniform(10, 20), uniform(10, 20)) for i in range(n//2) ]
-    points2 = [ Point(uniform(30, 40), uniform(30, 40)) for i in range(n//2) ]
+    points3 = [ Point(uniform(10, 20), uniform(10, 20)) for i in range(n//3) ] + [ Point(uniform(30, 40), uniform(10, 20)) for i in range(n//3) ] + [ Point(uniform(20, 30), uniform(30, 40)) for i in range(n//3) ]
 
-    print(kmeans(points1+points2, 2)[0])
+    import time
+    t1 = time.time()
+    print(kmeans(points1, 10, init="forgy")[0])
+    print(kmeans(points2, 2)[0])
+    print(kmeans(points3, 3)[0])
+    print(kmeans(points3, 3, init="random")[0])
+    t2 = time.time()
 
-    points1 = [ Point(uniform(10, 20), uniform(10, 20)) for i in range(n//3) ]
-    points2 = [ Point(uniform(30, 40), uniform(10, 20)) for i in range(n//3) ]
-    points3 = [ Point(uniform(20, 30), uniform(30, 40)) for i in range(n//3) ]
-
-    print(kmeans(points1+points2+points3, 3)[0])
-    print(kmeans(points1+points2+points3, 3, init="random")[0])
+    print('Time:', t2-t1, 'seconds')
 
 if __name__ == "__main__":
     test()
