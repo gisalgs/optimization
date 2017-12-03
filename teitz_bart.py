@@ -144,12 +144,12 @@ def teitz_bart(dist, p, verbose=False):
     d1    = [-1 for i in range(N)]
     d2    = [-1 for i in range(N)]
     r = update_assignment(dist, median, d1, d2, p , N)
-    if verbose: print r
+    if verbose: print(r)
     while True:
         result = next(dist, median, d1, d2, p, N)
         if result[0]:
             r = result[1]
-            if verbose: print r
+            if verbose: print(r)
         else:
             break
     return r, median
@@ -159,11 +159,11 @@ if __name__ == "__main__":
     sys.path.append('../networks')
     from network2listmatrix import network2distancematrix
     from allpairdist import allpairs
-    print 'Problem: simple network'
+    print('Problem: simple network')
     a = network2distancematrix('../data/network-links', True)
     allpairs(a)
     teitz_bart(a, 2, True)
-    print 'Problem: pmed1 in OR-lib'
+    print('Problem: pmed1 in OR-lib')
     a = network2distancematrix('../data/orlib/pmed1.orlib', False)
     allpairs(a)
     teitz_bart(a, 5, True)
