@@ -6,7 +6,7 @@ History
         Use exception to check initialization method
         Tried kd tree, with no improvement in computing time
         (tree construction takes too much time)
-        
+
     December 4, 2016
         verbose option in kmeans
 
@@ -41,7 +41,8 @@ def clustering_dist(points, means):
       means:     list of k points that serve as the means
 
     Output
-      nearests:  list of lists, where each inner list holds the id of nearest points to each mean
+      nearests:  list of lists, where each inner list holds the
+                   id of nearest points to each mean
       totaldist: average distances between each point to its nearest mean
     """
     n = len(points)
@@ -71,7 +72,8 @@ def initk(points, k, init):
 
     Output
       means:     list of k Point objects
-      nearests:  list of lists, where each inner list holds the id of nearest points to each mean
+      nearests:  list of lists, where each inner list holds the
+                   id of nearest points to each mean
       totaldist: average distances between each point to its nearest mean
     """
     n = len(points)
