@@ -1,7 +1,8 @@
 from math import fabs, sqrt
 import sys
-sys.path.append('../geom')
-from point import *
+
+sys.path.append('..')
+from geom.point import *
 
 __all__ = ['disc']
 
@@ -62,9 +63,9 @@ def make_disc(p1, p2, p3):
     if c < ys:
         ys = c
     if xs < ys:   # eliminate x, compute y first
-	return make_disc_x(p1, p2, p3)
+    	return make_disc_x(p1, p2, p3)
     else:
-	return make_disc_y(p1, p2, p3)
+	    return make_disc_y(p1, p2, p3)
 
 def make_disc_y(p1, p2, p3):
     x1 = p1.x
